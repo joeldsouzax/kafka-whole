@@ -119,7 +119,6 @@
         apps = {
           producer = utils.lib.mkApp { drv = producer; };
           consumer = utils.lib.mkApp { drv = consumer; };
-
         };
         devShells.default = let
           pkgsWithUnfree = import nixpkgs {

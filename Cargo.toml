@@ -1,9 +1,6 @@
 [workspace]
 resolver = "2"
-members = [
-    "producer",
-    "consumer",
-]
+members = [ "consumer","producer"]
 authors = ["Joel DSouza <joeldsouzax@gmail.com>"]
 
 [workspace.dependencies]

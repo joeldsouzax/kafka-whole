@@ -1,0 +1,6 @@
+[package]
+name = "consumer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
