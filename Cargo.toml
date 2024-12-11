@@ -5,6 +5,7 @@ authors = ["Joel DSouza <joeldsouzax@gmail.com>"]
 
 [workspace.dependencies]
 tokio = { version = "1.41.1", features = ["full"] }
+rdkafka = { version = "0.37.0", features = ["cmake-build"] }
 
 
 [workspace.package]
