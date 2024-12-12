@@ -117,3 +117,13 @@ services:
     tty: true
     environment:
       KSQL_CONFIG_DIR: "/etc/ksqldb"
+  kafka-connect:
+    image: confluentinc/cp-kafka-connect-base
+    volumes:
+      - ./alert-source.properties:/etc/kafka/alert-source.properties
+      - ./alert-sink.properties:/etc/kafka/alert-sink.properties
+    ports:
+      - "8083:8083"
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: 'broker1:29092'
+      CONNECT_GROUP_ID: connect-standalone
