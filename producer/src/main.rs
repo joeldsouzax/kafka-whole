@@ -20,7 +20,7 @@ async fn main() {
         .map(|i| async move {
             let delivery_status = producer
                 .send(
-                    FutureRecord::to("kinaction_helloworld")
+                    FutureRecord::to("test")
                         .payload(&format!("Message: {}", i))
                         .key(&format!("Key {}", i))
                         .headers(OwnedHeaders::new().insert(Header {
