@@ -1,7 +1,8 @@
 use rdkafka::client::ClientContext;
 use rdkafka::config::{ClientConfig, RDKafkaLogLevel};
 use rdkafka::consumer::stream_consumer::StreamConsumer;
-use rdkafka::consumer::{Consumer, ConsumerContext};
+use rdkafka::consumer::{CommitMode, Consumer, ConsumerContext};
+use rdkafka::message::{Headers, Message};
 
 struct CustomContext;
 impl ClientContext for CustomContext {}
@@ -50,5 +51,28 @@ async fn main() {
         .subscribe(&["test"])
         .expect("can't subscribe to  specified topics");
 
-    loop {}
+    loop {
+        match consumer.recv().await {
+            Err(e) => println!("kafka error: {}", e),
+            Ok(m) => {
+                let payload = match m.payload_view::<str>() {
+                    None => "",
+                    Some(Ok(s)) => s,
+                    Some(Err(e)) => {
+                        println!("Error while deserializing message payload: {:?}", e);
+                        ""
+                    }
+                };
+
+                println!("key: '{:?}', payload: '{}', topic: {}, partition: {}, offset: {}, timestamp: {:?}",
+                      m.key(), payload, m.topic(), m.partition(), m.offset(), m.timestamp());
+                if let Some(headers) = m.headers() {
+                    for header in headers.iter() {
+                        println!("  Header {:#?}: {:?}", header.key, header.value);
+                    }
+                }
+                consumer.commit_message(&m, CommitMode::Async).unwrap();
+            }
+        };
+    }
 }
