@@ -4,4 +4,5 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-rdkafka = {worksapce = true, features = ["cmake-build"] }
+rdkafka = { workspace = true, features = ["cmake-build"] }
+tokio = { workspace = true, features = ["full"] }

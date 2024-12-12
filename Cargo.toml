@@ -4,9 +4,8 @@ members = [ "consumer","producer"]
 authors = ["Joel DSouza <joeldsouzax@gmail.com>"]
 
 [workspace.dependencies]
-tokio = { version = "1.41.1", features = ["full"] }
 rdkafka = { version = "0.37.0", features = ["cmake-build"] }
-
+tokio = { version = "1.42.0", features = ["full"]}
 
 [workspace.package]
 version = "0.1.0"

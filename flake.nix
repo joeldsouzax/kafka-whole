@@ -115,7 +115,6 @@
         # };
         #
 
-        # TODO: combine all edge services into one service for apps called "edge"
         apps = {
           producer = utils.lib.mkApp { drv = producer; };
           consumer = utils.lib.mkApp { drv = consumer; };
