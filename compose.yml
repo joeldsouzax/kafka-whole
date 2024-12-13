@@ -127,8 +127,7 @@ services:
     ports:
       - "8083:8083"
     environment:
-       CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"
-       CONNECT_REST_ADVERTISED_HOST_NAME: 172.16.254.4
+       CONNECT_BOOTSTRAP_SERVERS: "broker1:9092"
        CONNECT_GROUP_ID: connect-cluster
        CONNECT_CONFIG_STORAGE_TOPIC: _connect-configs
        CONNECT_OFFSET_STORAGE_TOPIC: _connect-offsets
