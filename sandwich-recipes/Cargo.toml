@@ -1,0 +1,6 @@
+[package]
+name = "sandwich-recipes"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
