@@ -23,6 +23,18 @@ impl Sandwich {
             ingredients,
         })
     }
+
+    pub fn ingredients(&self) -> &Vec<String> {
+        &self.ingredients
+    }
+
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    pub fn id(&self) -> &str {
+        &self.id
+    }
 }
 
 #[cfg(test)]
@@ -43,9 +55,9 @@ mod tests {
         )
         .unwrap();
 
-        assert_eq!(&hot_dog.id, SANDWICH_ID);
-        assert_eq!(&hot_dog.name, SANDWICH_NAME);
-        assert_eq!(ingredients.len(), hot_dog.ingredients.len());
+        assert_eq!(hot_dog.id(), SANDWICH_ID);
+        assert_eq!(hot_dog.name(), SANDWICH_NAME);
+        assert_eq!(ingredients.len(), hot_dog.ingredients().len());
         for (i, exp_ingr) in ingredients.iter().enumerate() {
             assert_eq!(exp_ingr, &hot_dog.ingredients[i]);
         }
