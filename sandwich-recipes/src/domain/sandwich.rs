@@ -157,14 +157,12 @@ mod tests {
         );
         assert_eq!(err_sandwich.is_err(), true);
         assert_eq!(err_sandwich.unwrap_err(), "Any sandwich must have a name");
-
         let err_sandwich = Sandwich::new(
             SANDWICH_ID.to_string(),
             SANDWICH_NAME.to_string(),
             vec![],
             SandwichType::Meat,
         );
-
         assert_eq!(err_sandwich.is_err(), true);
         assert_eq!(
             err_sandwich.unwrap_err(),
