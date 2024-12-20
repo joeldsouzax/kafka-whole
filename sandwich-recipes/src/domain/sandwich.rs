@@ -33,6 +33,18 @@ impl SandwichName {
     }
 }
 
+impl TryFrom<String> for SandwichName {
+    type Error = &'static str;
+
+    fn try_from(name: String) -> Result<Self, Self::Error> {
+        if name.is_empty() {
+            Err("Any sandwich must have a name")
+        } else {
+            Ok(Self(name))
+        }
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum SandwichType {
     Meat,
