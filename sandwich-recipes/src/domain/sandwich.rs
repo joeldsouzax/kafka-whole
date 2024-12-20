@@ -26,7 +26,6 @@ impl TryFrom<String> for SandwichId {
 // sandwich name
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct SandwichName(String);
-
 impl SandwichName {
     pub fn value(&self) -> &String {
         &self.0
@@ -35,7 +34,6 @@ impl SandwichName {
 
 impl TryFrom<String> for SandwichName {
     type Error = &'static str;
-
     fn try_from(name: String) -> Result<Self, Self::Error> {
         if name.is_empty() {
             Err("Any sandwich must have a name")
@@ -44,12 +42,9 @@ impl TryFrom<String> for SandwichName {
         }
     }
 }
-
 // sandwich ingredients
-
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SandwichIngredients(Vec<String>);
-
 impl SandwichIngredients {
     pub fn value(&self) -> &Vec<String> {
         &self.0
@@ -58,7 +53,6 @@ impl SandwichIngredients {
 
 impl TryFrom<Vec<String>> for SandwichIngredients {
     type Error = &'static str;
-
     fn try_from(ingredients: Vec<String>) -> Result<Self, Self::Error> {
         if ingredients.is_empty() {
             Err("Any sandwich must have at least one ingredient")
@@ -137,7 +131,6 @@ mod tests {
             SandwichType::Meat,
         )
         .unwrap();
-
         assert_eq!(hot_dog.id().value().as_ref().unwrap(), SANDWICH_ID);
         assert_eq!(hot_dog.name().value(), SANDWICH_NAME);
         assert_eq!(ingredients.len(), hot_dog.ingredients().value().len());
