@@ -1,14 +1,60 @@
 use serde::{Deserialize, Serialize};
 
+// sandwich id
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SandwichId(Option<String>);
+
+impl SandwichId {
+    pub fn value(&self) -> &Option<String> {
+        &self.0
+    }
+}
+
+// does not make sense but document says stuff idk lol
+impl TryFrom<String> for SandwichId {
+    type Error = &'static str;
+
+    fn try_from(id: String) -> Result<Self, Self::Error> {
+        if id.is_empty() {
+            Ok(Self(None))
+        } else {
+            Ok(Self(Some(id)))
+        }
+    }
+}
+
+// sandwich name
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct SandwichName(String);
+
+impl SandwichName {
+    pub fn value(&self) -> &String {
+        &self.0
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum SandwichType {
+    Meat,
+    Fish,
+    Veggie,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Sandwich {
     id: String,
     name: String,
     ingredients: Vec<String>,
+    sandwich_type: SandwichType,
 }
 
 impl Sandwich {
-    pub fn new(id: String, name: String, ingredients: Vec<String>) -> Result<Self, String> {
+    pub fn new(
+        id: String,
+        name: String,
+        ingredients: Vec<String>,
+        sandwich_type: SandwichType,
+    ) -> Result<Self, String> {
         if name.is_empty() {
             return Err("Any sandwich must have a name".to_string());
         }
@@ -21,6 +67,7 @@ impl Sandwich {
             id,
             name,
             ingredients,
+            sandwich_type,
         })
     }
 
