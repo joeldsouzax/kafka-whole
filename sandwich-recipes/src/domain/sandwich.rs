@@ -77,9 +77,9 @@ pub enum SandwichType {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Sandwich {
-    id: String,
-    name: String,
-    ingredients: Vec<String>,
+    id: SandwichId,
+    name: SandwichName,
+    ingredients: SandwichIngredients,
     sandwich_type: SandwichType,
 }
 
@@ -90,32 +90,32 @@ impl Sandwich {
         ingredients: Vec<String>,
         sandwich_type: SandwichType,
     ) -> Result<Self, String> {
-        if name.is_empty() {
-            return Err("Any sandwich must have a name".to_string());
-        }
-
-        if ingredients.is_empty() {
-            return Err("Any sandwich must have at least an ingredient".to_string());
-        }
+        let sandwich_id = SandwichId::try_from(id)?;
+        let sandwich_name = SandwichName::try_from(name)?;
+        let sandwich_ingrs = SandwichIngredients::try_from(ingredients)?;
 
         Ok(Self {
-            id,
-            name,
-            ingredients,
+            id: sandwich_id,
+            name: sandwich_name,
+            ingredients: sandwich_ingrs,
             sandwich_type,
         })
     }
 
-    pub fn ingredients(&self) -> &Vec<String> {
+    pub fn ingredients(&self) -> &SandwichIngredients {
         &self.ingredients
     }
 
-    pub fn name(&self) -> &str {
+    pub fn name(&self) -> &SandwichName {
         &self.name
     }
 
-    pub fn id(&self) -> &str {
+    pub fn id(&self) -> &SandwichId {
         &self.id
+    }
+
+    pub fn sandwich_type(&self) -> &SandwichType {
+        &self.sandwich_type
     }
 }
 
