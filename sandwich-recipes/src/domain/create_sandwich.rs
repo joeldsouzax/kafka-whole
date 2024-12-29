@@ -28,18 +28,16 @@ pub fn create_sandwich<'a>(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::domain::sandwich::SandwichType;
+    use crate::helpers::string_vec_to_vec_str;
+    use crate::tests::test_utils::shared::{
+        assert_on_sandwich, stub_ingredients, stub_sandwich, SANDWICH_NAME, SANDWICH_TYPE,
+    };
 
     #[test]
     fn should_create_the_expected_sandwich() {
-        let ingredients = vec!["Wurst", "Ketchup"];
-        let sandwich = create_sandwich("Hot dog", &ingredients, &SandwichType::Meat).unwrap();
-
-        assert_eq!(sandwich.name().value(), "Hot dog");
-        assert_eq!(sandwich.ingredients().value().len(), ingredients.len());
-
-        for (i, exp_ingr) in sandwich.ingredients().value().iter().enumerate() {
-            assert_eq!(exp_ingr, &ingredients[i]);
-        }
+        let ingredients = stub_ingredients();
+        let ingredients = string_vec_to_vec_str(&ingredients);
+        let sandwich = create_sandwich(SANDWICH_NAME, &ingredients, &SANDWICH_TYPE).unwrap();
+        assert_on_sandwich(sandwich, &stub_sandwich(false), false);
     }
 }

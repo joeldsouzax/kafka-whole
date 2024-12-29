@@ -5,3 +5,5 @@ edition.workspace = true
 
 [dependencies]
 serde = { version = "1.0.216", features = ["derive"] }
+actix-web = "4"
+validator = {version = "0.15", features = ["derive"]}
