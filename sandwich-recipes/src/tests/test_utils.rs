@@ -26,4 +26,21 @@ pub mod shared {
             assert_eq!(exp_ingr, &actual_ingredients[i]);
         }
     }
+
+    pub fn stub_sandwich(with_id: bool) -> Sandwich {
+        let sandwich_id = if with_id { SANDWICH_ID } else { "" };
+        let sandwich_name = SANDWICH_NAME;
+        let hot_dog = Sandwich::new(
+            sandwich_id.to_string(),
+            sandwich_name.to_string(),
+            stub_ingredients(),
+            SANDWICH_TYPE,
+        )
+        .unwrap();
+        hot_dog
+    }
+
+    pub fn stub_ingredients() -> Vec<String> {
+        vec!["Wurst".to_string(), "Ketchup".to_string()]
+    }
 }
