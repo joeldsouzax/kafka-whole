@@ -1,5 +1,6 @@
-use crate::domain::sandwich::SandwichType;
+use crate::domain::sandwich::{Sandwich, SandwichType};
 use crate::helpers::string_vec_to_vec_str;
+use actix_web::web::Json;
 use serde::{Deserialize, Serialize};
 use validator::Validate;
 
@@ -16,6 +17,30 @@ pub struct CreateSandwichRequest {
     ))]
     pub ingredients: Vec<String>,
     pub sandwich_type: SandwichType,
+}
+
+#[derive(Debug, Deserialize, Serialize, PartialEq)]
+pub struct SandwichResponse {
+    pub id: String,
+    pub name: String,
+    pub ingredients: Vec<String>,
+    pub sandwich_type: SandwichType,
+}
+
+impl From<Sandwich> for SandwichResponse {
+    fn from(s: Sandwich) -> Self {
+        SandwichResponse {
+            id: s
+                .id()
+                .value()
+                .clone()
+                .unwrap_or(String::from(""))
+                .to_string(),
+            name: s.name().value().to_string(),
+            ingredients: s.ingredients().value().clone(),
+            sandwich_type: s.sandwich_type().clone(),
+        }
+    }
 }
 
 pub async fn create_sandwich(
