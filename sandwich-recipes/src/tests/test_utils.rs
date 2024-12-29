@@ -22,5 +22,8 @@ pub mod shared {
         expected_ingredients: &Vec<String>,
         actual_ingredients: &Vec<String>,
     ) {
+        for (i, exp_ingr) in expected_ingredients.iter().enumerate() {
+            assert_eq!(exp_ingr, &actual_ingredients[i]);
+        }
     }
 }
