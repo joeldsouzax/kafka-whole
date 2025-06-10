@@ -20,7 +20,7 @@ async fn main() {
             let delivery_status = producer
                 .send(
                     FutureRecord::to("test")
-                        .payload(&format!("Message: {}", i))
+                        .payload(&format!("Message: Payload {}", i))
                         .key(&format!("Key {}", i))
                         .headers(OwnedHeaders::new().insert(Header {
                             key: "header_key",
